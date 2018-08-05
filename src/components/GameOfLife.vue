@@ -1,8 +1,20 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h1>{{ title }}</h1>
+    <h4> Initial State </h4>
+    <div class="game-board">
+    <div class='row'
+    v-for="(row, rowIndex) in initialState"
+    :key="rowIndex">
+      <span
+      v-for="(cell,cellIndex) in row"
+      :key="cellIndex" >
+      <span v-on:click="toggleCellState(rowIndex,cellIndex)" class="game-board--cell" >
+         {{ showCellState(cell) }}</span>
 
+      </span>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -11,7 +23,21 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      title: 'Game Of Life',
+      initialState: [[true, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false],
+        [false, true, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false]]
+    }
+  },
+  methods: {
+    toggleCellState (rowIndex, cellIndex) {
+      this.initialState[rowIndex].splice(cellIndex, 1, !this.initialState[rowIndex][cellIndex])
+    },
+    showCellState (cell) {
+      return cell ? 'x' : '.'
     }
   }
 }
@@ -19,7 +45,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+.game-board{
+  font-family: 'Roboto Mono', monospace;
+
+}
+
+.game-board--cell{
+  cursor:pointer;
+}
+
+h1,
+h2 {
   font-weight: normal;
 }
 ul {
