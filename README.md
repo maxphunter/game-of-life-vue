@@ -11,9 +11,6 @@ yarn install
 # serve with hot reload at localhost:8080
 yarn run dev
 
-# run unit tests
-yarn run unit
-
 # run all tests
 yarn test
 ```
