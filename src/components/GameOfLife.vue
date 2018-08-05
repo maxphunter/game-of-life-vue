@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ title }}</h1>
+    <h1 class='title'>{{ title }}</h1>
     <h4> Initial State </h4>
     <div class="game-board">
     <div class='row'
@@ -26,14 +26,12 @@
       v-for="(cell,cellIndex) in row"
       :key="cellIndex" >
         <span
-        
+
         class="game-board--cell" >
           {{ showCellState(cell) }}</span>
       </span>
     </div>
     </div>
-    
-
 
   </div>
 </template>
@@ -43,7 +41,7 @@
 import {gameOfLife} from '../gameOfLifeLogic/gameOfLife'
 
 export default {
-  name: 'HelloWorld',
+  name: 'GameOfLife',
   data () {
     return {
       title: 'Game Of Life',
@@ -63,9 +61,9 @@ export default {
       return cell ? 'x' : '.'
     }
   },
-  computed:{
-    nextGeneration(){
-      return  gameOfLife(this.initialState)
+  computed: {
+    nextGeneration () {
+      return gameOfLife(this.initialState)
     }
   }
 }
