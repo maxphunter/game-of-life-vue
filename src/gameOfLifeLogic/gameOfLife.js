@@ -1,22 +1,20 @@
 export function determineNewState (aliveCount, initialCellState) {
+  let newState = false
   // if previously alive
   if (initialCellState) {
     if (aliveCount < 2 || aliveCount > 3) {
-      return false
+      newState = false
+    } else if (aliveCount === 2 || aliveCount === 3) {
+      newState = true
     }
-    if (aliveCount === 2 || aliveCount === 3) {
-      return true
-    }
-  }
-
-  // if previously dead
-  if (!initialCellState) {
+  } else if (!initialCellState) {
     if (aliveCount === 3) {
-      return true
+      newState = true
     } else {
-      return false
+      newState = false
     }
   }
+  return newState
 }
 
 export function gameOfLife (initialState) {
