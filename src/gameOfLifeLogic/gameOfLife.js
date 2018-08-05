@@ -1,4 +1,4 @@
-function determineNewState (aliveCount, initialCellState) {
+export function determineNewState (aliveCount, initialCellState) {
   // if previously alive
   if (initialCellState) {
     if (aliveCount < 2 || aliveCount > 3) {
