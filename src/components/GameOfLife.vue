@@ -9,24 +9,47 @@
       <span
       v-for="(cell,cellIndex) in row"
       :key="cellIndex" >
-      <span v-on:click="toggleCellState(rowIndex,cellIndex)" class="game-board--cell" >
-         {{ showCellState(cell) }}</span>
-
+        <span
+        v-on:click="toggleCellState(rowIndex,cellIndex)"
+        class="game-board--cell" >
+          {{ showCellState(cell) }}</span>
       </span>
     </div>
     </div>
+    <hr>
+    <h4> Next Generation </h4>
+<div class="game-board">
+    <div class='row'
+    v-for="(row, rowIndex) in nextGeneration"
+    :key="rowIndex">
+      <span
+      v-for="(cell,cellIndex) in row"
+      :key="cellIndex" >
+        <span
+        
+        class="game-board--cell" >
+          {{ showCellState(cell) }}</span>
+      </span>
+    </div>
+    </div>
+    
+
+
   </div>
 </template>
 
 <script>
+
+import {gameOfLife} from '../gameOfLifeLogic/gameOfLife'
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
       title: 'Game Of Life',
-      initialState: [[true, false, false, false, false, false, false, false],
+      initialState: [[false, false, false, false, false, false, false, false],
+        [true, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false],
-        [false, true, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false]]
@@ -39,6 +62,11 @@ export default {
     showCellState (cell) {
       return cell ? 'x' : '.'
     }
+  },
+  computed:{
+    nextGeneration(){
+      return  gameOfLife(this.initialState)
+    }
   }
 }
 </script>
@@ -48,26 +76,10 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 .game-board{
   font-family: 'Roboto Mono', monospace;
-
 }
 
 .game-board--cell{
   cursor:pointer;
 }
 
-h1,
-h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>
