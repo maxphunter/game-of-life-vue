@@ -29,52 +29,14 @@ export function gameOfLife (initialState) {
       // check all the surroundings
       // check left
 
-      if (x > 0) {
-        let leftCell = initialState[y][x - 1]
-        if (leftCell) { aliveCount++ }
-      }
-
-      // check upper left
-      if (x > 0 && y > 0) {
-        let upperLeftCell = initialState[y - 1][x - 1]
-        if (upperLeftCell) { aliveCount++ }
-      }
-
-      // check above
-      if (y > 0) {
-        let aboveCell = initialState[y - 1][x]
-        if (aboveCell) { aliveCount++ }
-      }
-
-      // check upper right
-      if (x < initialState[y].length - 1 && y > 0) {
-        let upperRightCell = initialState[y - 1][x + 1]
-        if (upperRightCell) { aliveCount++ }
-      }
-
-      // check right
-      if (x < initialState[y].length - 1) {
-        let rightCell = initialState[y][x + 1]
-        if (rightCell) { aliveCount++ }
-      }
-
-      // check lower right
-      if (x < initialState[y].length - 1 && y < initialState.length - 1) {
-        let lowerRightCell = initialState[y + 1][x + 1]
-        if (lowerRightCell) { aliveCount++ }
-      }
-
-      // check below
-      if (y < initialState.length - 1) {
-        let belowCell = initialState[y + 1][x]
-        if (belowCell) { aliveCount++ }
-      }
-
-      // check lower left
-      if (x > 0 && y < initialState.length - 1) {
-        let lowerLeftCell = initialState[y + 1][x - 1]
-        if (lowerLeftCell) { aliveCount++ }
-      }
+      aliveCount += checkLeftCell(x, y, initialState)
+      aliveCount += checkUpperLeftCell(x, y, initialState)
+      aliveCount += checkAboveCell(x, y, initialState)
+      aliveCount += checkUpperRightCell(x, y, initialState)
+      aliveCount += checkRightCell(x, y, initialState)
+      aliveCount += checkLowerRightCell(x, y, initialState)
+      aliveCount += checkBottomCell(x, y, initialState)
+      aliveCount += checkLowerLeftCell(x, y, initialState)
 
       // determine new state based on alive/dead neighbor count
       let newState = determineNewState(aliveCount, initialState[y][x])
@@ -85,4 +47,71 @@ export function gameOfLife (initialState) {
   }
 
   return updatedState
+}
+
+function checkLeftCell (x, y, initialState) {
+  let leftCellAlive = false
+  if (x > 0) {
+    leftCellAlive = initialState[y][x - 1]
+  }
+  return leftCellAlive ? 1 : 0
+}
+
+function checkUpperLeftCell (x, y, initialState) {
+  let upperLeftCellAlive = false
+  if (x > 0 && y > 0) {
+    upperLeftCellAlive = initialState[y - 1][x - 1]
+  }
+  return upperLeftCellAlive ? 1 : 0
+}
+
+function checkAboveCell (x, y, initialState) {
+  let isAboveCellAlive = false
+  // check above
+  if (y > 0) {
+    isAboveCellAlive = initialState[y - 1][x]
+  }
+  return isAboveCellAlive ? 1 : 0
+}
+
+function checkUpperRightCell (x, y, initialState) {
+  let isUpperRightCellAlive = false
+  // check upper right
+  if (x < initialState[y].length - 1 && y > 0) {
+    isUpperRightCellAlive = initialState[y - 1][x + 1]
+  }
+  return isUpperRightCellAlive ? 1 : 0
+}
+
+function checkRightCell (x, y, initialState) {
+  let isRightCellAlive = false
+  // check right
+  if (x < initialState[y].length - 1) {
+    isRightCellAlive = initialState[y][x + 1]
+  }
+  return isRightCellAlive ? 1 : 0
+}
+function checkLowerRightCell (x, y, initialState) {
+  let isLowerRightCellAlive = false
+  // check lower right
+  if (x < initialState[y].length - 1 && y < initialState.length - 1) {
+    isLowerRightCellAlive = initialState[y + 1][x + 1]
+  }
+  return isLowerRightCellAlive ? 1 : 0
+}
+function checkBottomCell (x, y, initialState) {
+  let isBottomCellAlive = false
+  // check below
+  if (y < initialState.length - 1) {
+    isBottomCellAlive = initialState[y + 1][x]
+  }
+  return isBottomCellAlive ? 1 : 0
+}
+function checkLowerLeftCell (x, y, initialState) {
+  let isLowerLeftCellAlive = false
+  // check lower left
+  if (x > 0 && y < initialState.length - 1) {
+    isLowerLeftCellAlive = initialState[y + 1][x - 1]
+  }
+  return isLowerLeftCellAlive ? 1 : 0
 }
